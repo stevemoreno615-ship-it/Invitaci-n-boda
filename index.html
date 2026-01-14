@@ -167,7 +167,7 @@ Waze
 <div class="time-box"><span id="seconds">0</span>Seg</div>
 </div>
 
-<a id="wa-btn" class="btn" target="_blank">Confirmar asistencia</a>
+<a id="wa-btn" class="btn">Confirmar asistencia</a>
 
 <footer>Código de vestimenta: Formal</footer>
 
@@ -246,8 +246,29 @@ Agradeceremos confirmar su asistencia por este medio.
 Con cariño,
 Steve & Tatiana`;
 
-  waBtn.href =
-    `https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
+const waBtn = document.getElementById("wa-btn");
+const waLink = `https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
+
+waBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  if (token) {
+    navigator.sendBeacon(
+      WEBHOOK,
+      JSON.stringify({
+        action: "confirm",
+        guest,
+        token
+      })
+    );
+  }
+
+  // Delay seguro para que se registre en el Sheet
+  setTimeout(() => {
+    window.location.href = waLink;
+  }, 600);
+});
+
   wa-btn.addEventListener("click", () => {
   if(token){
     navigator.sendBeacon(WEBHOOK, JSON.stringify({
@@ -267,6 +288,7 @@ wa-btn.href=`https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
 
 </body>
 </html>
+
 
 
 

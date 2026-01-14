@@ -257,11 +257,21 @@ Agradeceremos confirmar su asistencia por este medio.
 Con cariño,
 Steve & Tatiana`;
 
-waBtn.href = `https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
+wa-btn.addEventListener("click", () => {
+  if(token){
+    navigator.sendBeacon(WEBHOOK, JSON.stringify({
+      action:"confirm",
+      guest,
+      token
+    }));
+  }
+});
+;
 </script>
 
 </body>
 </html>
+
 
 
 

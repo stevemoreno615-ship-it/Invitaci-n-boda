@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Invitación de Boda | Steve & Tatiana</title>
+<title>Invitación | Steve & Tatiana</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -50,7 +50,6 @@ footer{margin-top:40px;font-size:.9rem;}
 <p class="details">📅 28 de marzo de 2026<br>⛪ Ceremonia: 3:00 p.m.<br>🥂 Recepción: 5:30 p.m.</p>
 <h2>Lugar</h2>
 <p class="details">Finca Los Pinares</p>
-
 <a class="btn" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=Finca+Los+Pinares+Apaneca">Google Maps</a>
 <a class="btn waze" target="_blank" href="https://waze.com/ul?q=Finca%20Los%20Pinares%20Apaneca">Waze</a>
 
@@ -62,7 +61,6 @@ footer{margin-top:40px;font-size:.9rem;}
 </div>
 
 <a id="wa-btn" class="btn" target="_blank">Confirmar asistencia</a>
-
 <footer>Código de vestimenta: Formal</footer>
 <p style="margin-top:30px">Con cariño,<br><strong>Steve & Tatiana</strong></p>
 </div>
@@ -73,7 +71,7 @@ footer{margin-top:40px;font-size:.9rem;}
 const hour = new Date().getHours();
 if(hour>=18||hour<6) document.body.classList.add('noche');
 
-// Cuenta regresiva
+// Cuenta regresiva con fondo sólido
 const weddingDate = new Date("2026-03-28T15:00:00").getTime();
 setInterval(()=>{
   const now = Date.now();
@@ -85,21 +83,18 @@ setInterval(()=>{
   document.getElementById('seconds').textContent = Math.floor((diff%60000)/1000);
 },1000);
 
-// Personalización + registro Sheet
+// Personalización + registro en Sheet
 document.addEventListener("DOMContentLoaded",()=>{
   const params = new URLSearchParams(location.search);
   const guest = decodeURIComponent(params.get("guest")||"Invitado especial");
   const token = params.get("token")||"";
   document.getElementById("guest-name").textContent = `Con cariño para ${guest}`;
 
-  const WEBHOOK="https://script.google.com/macros/s/AKfycbz3MqxHJiGta1YBsk4tfXJjo3_SLqf9TKQRIoOhC5NLsRGfqEqZLQTJ2iG3_j20NIi-iQ/exec"; // reemplazar con tu Web App URL
+  const WEBHOOK="https://script.google.com/macros/s/AKfycbyc9k1ynOGTQzbNrNNq4IllL6wyCJbwJ1mYAtHBJbqTPg_kHWJMbXKwLcBEC_xKZUOlXQ/exec"; // reemplaza por tu Web App URL
 
-  // Apertura
+  // Registrar apertura
   if(token){
-    fetch(WEBHOOK,{
-      method:"POST",
-      body:JSON.stringify({action:"open",guest,token,ua:navigator.userAgent})
-    });
+    fetch(WEBHOOK,{method:"POST",body:JSON.stringify({action:"open",guest,token,ua:navigator.userAgent})});
   }
 
   // Confirmación
@@ -107,7 +102,6 @@ document.addEventListener("DOMContentLoaded",()=>{
   const waLink=`https://wa.me/50370689702?text=${encodeURIComponent(
     `Estimados ${guest},\n\nCon mucha alegría les invitamos a celebrar nuestra boda.\nAgradeceremos confirmar su asistencia por este medio.\n\nCon cariño,\nSteve & Tatiana`
   )}`;
-
   let clicked=false;
   waBtn.addEventListener("click",e=>{
     e.preventDefault();
@@ -115,10 +109,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     clicked=true;
 
     if(token){
-      fetch(WEBHOOK,{
-        method:"POST",
-        body:JSON.stringify({action:"confirm",guest,token,ua:navigator.userAgent})
-      });
+      fetch(WEBHOOK,{method:"POST",body:JSON.stringify({action:"confirm",guest,token,ua:navigator.userAgent})});
     }
 
     waBtn.textContent="Asistencia confirmada ✅";
@@ -130,6 +121,8 @@ document.addEventListener("DOMContentLoaded",()=>{
 </script>
 </body>
 </html>
+
+
 
 
 

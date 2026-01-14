@@ -228,18 +228,16 @@ if (token) {
 }
 
 /* WhatsApp personalizado */
-const waBtn = document.getElementById("wa-btn");
 
-const msg = `Estimados ${guest},
+const waBtn = document.getElementById("wa-btn");
+const waLink = `https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
+  const msg = `Estimados ${guest},
 
 Con mucha alegría les invitamos a celebrar nuestra boda.
 Agradeceremos confirmar su asistencia por este medio.
 
 Con cariño,
 Steve & Tatiana`;
-
-const waBtn = document.getElementById("wa-btn");
-const waLink = `https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
 
 waBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -265,6 +263,7 @@ waBtn.addEventListener("click", (e) => {
 
 </body>
 </html>
+
 
 
 

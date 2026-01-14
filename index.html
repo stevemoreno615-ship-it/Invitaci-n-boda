@@ -120,6 +120,25 @@ body.noche .time-box span {
 }
 
 </style>
+  /* ⏳ Cuenta regresiva – corrección de contraste */
+.time-box {
+  color: var(--azul);
+}
+
+.time-box span {
+  color: var(--azul);
+}
+
+/* 🌙 Modo noche */
+body.noche .time-box {
+  background: rgba(255,255,255,0.08);
+  color: #e5edff;
+}
+
+body.noche .time-box span {
+  color: #ffffff;
+}
+
 </head>
 
 <body>
@@ -243,6 +262,7 @@ waBtn.href = `https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
 
 </body>
 </html>
+
 
 
 

@@ -179,66 +179,58 @@ Con cariño,<br><strong>Steve & Tatiana</strong>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+/* 🌗 Tema automático */
+const hour = new Date().getHours();
+if (hour >= 18 || hour < 6) {
+  document.body.classList.add('noche');
+}
 
-  /* 🌗 Tema automático */
-  const hour = new Date().getHours();
-  if (hour >= 18 || hour < 6) {
-    document.body.classList.add("noche");
-  }
+/* ⏳ Cuenta regresiva */
+const daysEl = document.getElementById("days");
+const hoursEl = document.getElementById("hours");
+const minutesEl = document.getElementById("minutes");
+const secondsEl = document.getElementById("seconds");
 
-  /* ⏳ Cuenta regresiva */
-  const daysEl = document.getElementById("days");
-  const hoursEl = document.getElementById("hours");
-  const minutesEl = document.getElementById("minutes");
-  const secondsEl = document.getElementById("seconds");
+const wedding = new Date("2026-03-28T15:00:00").getTime();
 
-  const weddingDate = new Date("2026-03-28T15:00:00").getTime();
+setInterval(() => {
+  const now = Date.now();
+  let d = wedding - now;
+  if (d < 0) d = 0;
 
-  function updateCountdown() {
-    const now = Date.now();
-    let diff = weddingDate - now;
-    if (diff < 0) diff = 0;
+  daysEl.textContent = Math.floor(d / 86400000);
+  hoursEl.textContent = Math.floor((d % 86400000) / 3600000);
+  minutesEl.textContent = Math.floor((d % 3600000) / 60000);
+  secondsEl.textContent = Math.floor((d % 60000) / 1000);
+}, 1000);
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+/* 🎯 Personalización + tracking */
+const params = new URLSearchParams(window.location.search);
+const guest = decodeURIComponent(params.get("guest") || "Invitado especial");
+const token = params.get("token");
 
-    daysEl.textContent = days;
-    hoursEl.textContent = hours;
-    minutesEl.textContent = minutes;
-    secondsEl.textContent = seconds;
-  }
+const guestTitle = document.getElementById("guest-name");
+guestTitle.textContent = `Con cariño para ${guest}`;
 
-  updateCountdown(); // primera ejecución inmediata
-  setInterval(updateCountdown, 1000);
+const WEBHOOK = "https://script.google.com/macros/s/AKfycbwRAlY0UxQ-RXAy0SaXUzTkOw_DsSoP0jaO2Oa1XnT2aI726XJeNCmTQPm45LSN7ojm/exec";
 
-  /* 🎯 Personalización + tracking */
-  const params = new URLSearchParams(window.location.search);
-  const guest = decodeURIComponent(params.get("guest") || "Invitado especial");
-  const token = params.get("token");
+/* Registrar apertura */
+if (token) {
+  navigator.sendBeacon(
+    WEBHOOK,
+    JSON.stringify({
+      action: "open",
+      guest: guest,
+      token: token,
+      ua: navigator.userAgent
+    })
+  );
+}
 
-  document.getElementById("guest-name").textContent =
-    `Con cariño para ${guest}`;
+/* WhatsApp personalizado */
+const waBtn = document.getElementById("wa-btn");
 
-  const WEBHOOK = "https://script.google.com/macros/s/AKfycbweDDtPVKKSxcGT_Ij9OFI16aJgTyKoAbFNz8umQFvFBDfhpHv_i01RFOzha043t7Q7fw/exec";
-
-  if (token) {
-    navigator.sendBeacon(
-      WEBHOOK,
-      JSON.stringify({
-        action: "open",
-        guest: guest,
-        token: token,
-        ua: navigator.userAgent
-      })
-    );
-  }
-
-  /* WhatsApp */
-  const waBtn = document.getElementById("wa-btn");
-  const msg = `Estimados ${guest},
+const msg = `Estimados ${guest},
 
 Con mucha alegría les invitamos a celebrar nuestra boda.
 Agradeceremos confirmar su asistencia por este medio.
@@ -246,44 +238,12 @@ Agradeceremos confirmar su asistencia por este medio.
 Con cariño,
 Steve & Tatiana`;
 
-const waBtn = document.getElementById("wa-btn");
-const waLink = `https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
-
-waBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  if (token) {
-    navigator.sendBeacon(
-      WEBHOOK,
-      JSON.stringify({
-        action: "confirm",
-        guest,
-        token
-      })
-    );
-  }
-
-  // Delay seguro para que se registre en el Sheet
-  setTimeout(() => {
-    window.location.href = waLink;
-  }, 600);
-});
-
-  wa-btn.addEventListener("click", () => {
-  if(token){
-    navigator.sendBeacon(WEBHOOK, JSON.stringify({
-      action:"confirm",
-      guest,
-      token
-    }));
-  }
-});
-
-
-});
+waBtn.href = `https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
 </script>
+
 </body>
 </html>
+
 
 
 

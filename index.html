@@ -100,25 +100,6 @@ color:var(--dorado);
 box-shadow:0 0 15px rgba(212,175,55,.5);
 }
 footer{margin-top:40px;font-size:.9rem}
-  /* ⏳ Cuenta regresiva – corrección de contraste */
-.time-box {
-  color: var(--azul);
-}
-
-.time-box span {
-  color: var(--azul);
-}
-
-/* 🌙 Modo noche */
-body.noche .time-box {
-  background: rgba(255,255,255,0.08);
-  color: #e5edff;
-}
-
-body.noche .time-box span {
-  color: #ffffff;
-}
-
 </style>
   /* ⏳ Cuenta regresiva – corrección de contraste */
 .time-box {
@@ -257,20 +238,14 @@ Agradeceremos confirmar su asistencia por este medio.
 Con cariño,
 Steve & Tatiana`;
 
-wa-btn.addEventListener("click", () => {
-  if(token){
-    navigator.sendBeacon(WEBHOOK, JSON.stringify({
-      action:"confirm",
-      guest,
-      token
-    }));
-  }
+waBtn.href =
+    `https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
 });
-;
 </script>
 
 </body>
 </html>
+
 
 
 

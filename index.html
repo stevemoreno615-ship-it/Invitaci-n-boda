@@ -4,17 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Invitación de Boda | Steve & Tatiana</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-
 <style>
 :root{
   --azul:#1e3a8a;
   --azul-claro:#eaf2ff;
   --dorado:#d4af37;
 }
-
-/* BODY */
 body{
   margin:0;
   font-family:'Montserrat',sans-serif;
@@ -22,21 +18,16 @@ body{
   color:var(--azul);
   transition:.6s;
 }
-
 body.noche{
   background:linear-gradient(180deg,#0b1d3a,#102a56);
   color:#e5edff;
 }
-
-/* CONTAINER */
 .container{
   max-width:900px;
   margin:auto;
   padding:40px 20px;
   text-align:center;
 }
-
-/* CARD */
 .card{
   background:white;
   border-radius:20px;
@@ -46,20 +37,11 @@ body.noche{
   position:relative;
   overflow:hidden;
 }
-
 body.noche .card{
   background:#0f2547;
 }
-
-@keyframes fade{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* TITULOS */
-h1,h2{
-  font-family:'Playfair Display',serif;
-}
+@keyframes fade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+h1,h2{font-family:'Playfair Display',serif;}
 h1{font-size:3rem;}
 .divider{
   width:120px;
@@ -67,11 +49,7 @@ h1{font-size:3rem;}
   background:var(--azul);
   margin:25px auto;
 }
-
-/* DETALLES */
-.details{line-height:1.8}
-
-/* BOTONES */
+.details{line-height:1.8;}
 .btn{
   display:inline-block;
   margin:15px;
@@ -84,64 +62,34 @@ h1{font-size:3rem;}
   box-shadow:0 10px 20px rgba(30,58,138,.35);
   cursor:pointer;
 }
-.btn.waze{background:#2bb8ff}
-
-/* CUENTA REGRESIVA */
+.btn.waze{background:#2bb8ff;}
 .countdown{
   display:flex;
   justify-content:center;
   gap:20px;
   margin-top:30px;
 }
-
-.time-box {
-  background-color: var(--azul-claro) !important;
-  color: var(--azul) !important;
-  padding: 15px 20px;
-  border-radius: 12px;
-  min-width: 80px;
-  text-align: center;
-  position: relative;
-  font-weight: 700;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  overflow: hidden;
+.time-box{
+  background-color: var(--azul-claro);
+  color: var(--azul);
+  padding:15px 20px;
+  border-radius:12px;
+  min-width:80px;
+  text-align:center;
+  font-weight:700;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  position:relative;
 }
-
-.time-box span {
-  display: block;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--azul) !important;
-  position: relative;
-  z-index: 2;
+.time-box span{
+  display:block;
+  font-size:1.8rem;
+  font-weight:700;
 }
-
-.time-box::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 12px;
-  border: 2px solid var(--dorado);
-  opacity: 0.25;
-  z-index: 1;
+body.noche .time-box{
+  background-color: rgba(255,255,255,0.08);
+  color:#fff;
 }
-
-/* Modo noche */
-body.noche .time-box {
-  background-color: rgba(255,255,255,0.08) !important;
-  color: #ffffff !important;
-}
-body.noche .time-box span {
-  color: #ffffff !important;
-}
-body.noche .time-box::before {
-  border-color: rgba(212,175,55,0.4);
-}
-
-/* SELLO */
+body.noche .time-box span{color:#fff;}
 .sello{
   position:absolute;
   top:20px;
@@ -158,147 +106,128 @@ body.noche .time-box::before {
   color:var(--dorado);
   box-shadow:0 0 15px rgba(212,175,55,.5);
 }
-
-footer{margin-top:40px;font-size:.9rem}
+footer{margin-top:40px;font-size:.9rem;}
 </style>
 </head>
-
 <body>
-
-<!-- Música de fondo -->
 <audio autoplay loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5f0b5d8c1b.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
-  <div class="card">
+<div class="card">
+<div class="sello">S & T</div>
 
-    <div class="sello">S & T</div>
+<p>Con la bendición de Dios y de nuestros padres</p>
+<h1>Steve & Tatiana</h1>
+<div class="divider"></div>
+<p class="details">Tenemos el honor de invitarles a celebrar nuestra boda</p>
+<h2 id="guest-name"></h2>
 
-    <p>Con la bendición de Dios y de nuestros padres</p>
-    <h1>Steve & Tatiana</h1>
-    <div class="divider"></div>
+<p class="details">
+📅 28 de marzo de 2026<br>
+   Ceremonia: 3:00 p.m.<br>
+🥂 Recepción: 5:30 p.m.
+</p>
 
-    <p class="details">Tenemos el honor de invitarles a celebrar nuestra boda</p>
-    <h2 id="guest-name"></h2>
+<h2>Lugar</h2>
+<p class="details">Finca Los Pinares</p>
 
-    <p class="details">
-      📅 28 de marzo de 2026<br>
-      ⛪ Ceremonia: 3:00 p.m.<br>
-      🥂 Recepción: 5:30 p.m.
-    </p>
+<a class="btn" target="_blank"
+  href="https://www.google.com/maps/dir/?api=1&destination=Finca+Los+Pinares+Apaneca">Google Maps</a>
+<a class="btn waze" target="_blank"
+  href="https://waze.com/ul?q=Finca%20Los%20Pinares%20Apaneca">Waze</a>
 
-    <h2>Lugar</h2>
-    <p class="details">Finca Los Pinares</p>
+<div class="countdown">
+  <div class="time-box"><span id="days">0</span>Días</div>
+  <div class="time-box"><span id="hours">0</span>Horas</div>
+  <div class="time-box"><span id="minutes">0</span>Min</div>
+  <div class="time-box"><span id="seconds">0</span>Seg</div>
+</div>
 
-    <a class="btn" target="_blank"
-      href="https://www.google.com/maps/dir/?api=1&destination=Finca+Los+Pinares+Apaneca">Google Maps</a>
-    <a class="btn waze" target="_blank"
-      href="https://waze.com/ul?q=Finca%20Los%20Pinares%20Apaneca">Waze</a>
+<a id="wa-btn" class="btn">Confirmar asistencia</a>
 
-    <div class="countdown">
-      <div class="time-box"><span id="days">0</span>Días</div>
-      <div class="time-box"><span id="hours">0</span>Horas</div>
-      <div class="time-box"><span id="minutes">0</span>Min</div>
-      <div class="time-box"><span id="seconds">0</span>Seg</div>
-    </div>
-
-    <a id="wa-btn" class="btn">Confirmar asistencia</a>
-
-    <footer>Código de vestimenta: Formal</footer>
-    <p style="margin-top:30px">Con cariño,<br><strong>Steve & Tatiana</strong></p>
-
-  </div>
+<footer>Código de vestimenta: Formal</footer>
+<p style="margin-top:30px">Con cariño,<br><strong>Steve & Tatiana</strong></p>
+</div>
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-
-  // 🌗 Tema automático día/noche
+  // 🌗 Tema automático
   const h = new Date().getHours();
-  if(h >= 18 || h < 6) document.body.classList.add("noche");
+  if(h>=18 || h<6) document.body.classList.add("noche");
 
   // ⏳ Cuenta regresiva
+  const weddingDate = new Date("2026-03-28T15:00:00").getTime();
   const daysEl = document.getElementById("days");
   const hoursEl = document.getElementById("hours");
   const minutesEl = document.getElementById("minutes");
   const secondsEl = document.getElementById("seconds");
 
-  const weddingDate = new Date("2026-03-28T15:00:00").getTime();
-
   function updateCountdown(){
     const now = Date.now();
     let diff = weddingDate - now;
-    if(diff < 0) diff = 0;
-
-    const days = Math.floor(diff / (1000*60*60*24));
-    const hours = Math.floor((diff / (1000*60*60)) % 24);
-    const minutes = Math.floor((diff / (1000*60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    if(daysEl) daysEl.textContent = days;
-    if(hoursEl) hoursEl.textContent = hours;
-    if(minutesEl) minutesEl.textContent = minutes;
-    if(secondsEl) secondsEl.textContent = seconds;
+    if(diff<0) diff=0;
+    const days = Math.floor(diff/(1000*60*60*24));
+    const hours = Math.floor((diff/(1000*60*60))%24);
+    const minutes = Math.floor((diff/(1000*60))%60);
+    const seconds = Math.floor((diff/1000)%60);
+    daysEl.textContent = days;
+    hoursEl.textContent = hours;
+    minutesEl.textContent = minutes;
+    secondsEl.textContent = seconds;
   }
-
   updateCountdown();
-  setInterval(updateCountdown, 1000);
+  setInterval(updateCountdown,1000);
 
-  // 🎯 Personalización por invitado
+  // 🎯 Personalización y registro
   const params = new URLSearchParams(window.location.search);
   const guest = decodeURIComponent(params.get("guest") || "Invitado especial");
   const token = params.get("token");
   const guestTitle = document.getElementById("guest-name");
-  if(guestTitle) guestTitle.textContent = `Con cariño para ${guest}`;
+  guestTitle.textContent = `Con cariño para ${guest}`;
 
-  // 💌 Webhook Google Sheet
-  const WEBHOOK = "https://script.google.com/macros/s/AKfycbz3MqxHJiGta1YBsk4tfXJjo3_SLqf9TKQRIoOhC5NLsRGfqEqZLQTJ2iG3_j20NIi-iQ/exec";
+  const WEBHOOK = "https://script.google.com/macros/s/TU_WEB_APP_ID/exec";
 
   // Registrar apertura
   if(token){
     navigator.sendBeacon(WEBHOOK, JSON.stringify({
-      action: "open",
-      guest,
-      token,
-      ua: navigator.userAgent
-    }));
-  }
-
-  // Confirmación asistencia
-const waBtn = document.getElementById("wa-btn");
-const waLink = `https://wa.me/50370689702?text=${encodeURIComponent(
-  `Estimados ${guest},\n\nCon mucha alegría les invitamos a celebrar nuestra boda.\nAgradeceremos confirmar su asistencia por este medio.\n\nCon cariño,\nSteve & Tatiana`
-)`;
-
-let clicked = false;
-waBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  if(clicked) return;
-  clicked = true;
-
-  // Enviar confirmación al Sheet
-  if(token){
-    navigator.sendBeacon(WEBHOOK, JSON.stringify({
-      action:"confirm",
+      action:"open",
       guest,
       token,
       ua:navigator.userAgent
     }));
   }
 
-  waBtn.textContent = "Asistencia confirmada ✅";
-  waBtn.style.pointerEvents = "none";
-
-  setTimeout(() => {
-    window.location.href = waLink;
-  }, 600);
+  // Confirmación asistencia
+  const waBtn = document.getElementById("wa-btn");
+  const waLink = `https://wa.me/50370689702?text=${encodeURIComponent(
+    `Estimados ${guest},\n\nCon mucha alegría les invitamos a celebrar nuestra boda.\nAgradeceremos confirmar su asistencia por este medio.\n\nCon cariño,\nSteve & Tatiana`
+  )}`;
+  let clicked = false;
+  waBtn.addEventListener("click",(e)=>{
+    e.preventDefault();
+    if(clicked) return;
+    clicked=true;
+    if(token){
+      navigator.sendBeacon(WEBHOOK, JSON.stringify({
+        action:"confirm",
+        guest,
+        token,
+        ua:navigator.userAgent
+      }));
+    }
+    waBtn.textContent="Asistencia confirmada ✅";
+    waBtn.style.pointerEvents="none";
+    setTimeout(()=>{window.location.href=waLink;},600);
+  });
 });
-
 </script>
 
 </body>
 </html>
+
 
 
 

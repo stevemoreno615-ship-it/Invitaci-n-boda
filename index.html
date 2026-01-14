@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if(guestTitle) guestTitle.textContent = `Con cariño para ${guest}`;
 
   // 💌 Webhook Google Sheet
-  const WEBHOOK = "https://script.google.com/macros/s/TU_WEB_APP_ID/exec";
+  const WEBHOOK = "https://script.google.com/macros/s/AKfycbz3MqxHJiGta1YBsk4tfXJjo3_SLqf9TKQRIoOhC5NLsRGfqEqZLQTJ2iG3_j20NIi-iQ/exec";
 
   // Registrar apertura
   if(token){
@@ -266,38 +266,40 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Confirmación asistencia
-  const waBtn = document.getElementById("wa-btn");
-  const waLink = `https://wa.me/50370689702?text=${encodeURIComponent(
-    `Estimados ${guest},\n\nCon mucha alegría les invitamos a celebrar nuestra boda.\nAgradeceremos confirmar su asistencia por este medio.\n\nCon cariño,\nSteve & Tatiana`
-  )}`;
+const waBtn = document.getElementById("wa-btn");
+const waLink = `https://wa.me/50370689702?text=${encodeURIComponent(
+  `Estimados ${guest},\n\nCon mucha alegría les invitamos a celebrar nuestra boda.\nAgradeceremos confirmar su asistencia por este medio.\n\nCon cariño,\nSteve & Tatiana`
+)`;
 
-  let clicked = false;
-  waBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    if(clicked) return;
-    clicked = true;
+let clicked = false;
+waBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if(clicked) return;
+  clicked = true;
 
-    if(token){
-      navigator.sendBeacon(WEBHOOK, JSON.stringify({
-        action:"confirm",
-        guest,
-        token
-      }));
-    }
+  // Enviar confirmación al Sheet
+  if(token){
+    navigator.sendBeacon(WEBHOOK, JSON.stringify({
+      action:"confirm",
+      guest,
+      token,
+      ua:navigator.userAgent
+    }));
+  }
 
-    waBtn.textContent = "Asistencia confirmada ✅";
-    waBtn.style.pointerEvents = "none";
+  waBtn.textContent = "Asistencia confirmada ✅";
+  waBtn.style.pointerEvents = "none";
 
-    setTimeout(() => {
-      window.location.href = waLink;
-    }, 600);
-  });
-
+  setTimeout(() => {
+    window.location.href = waLink;
+  }, 600);
 });
+
 </script>
 
 </body>
 </html>
+
 
 
 

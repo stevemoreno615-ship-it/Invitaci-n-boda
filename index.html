@@ -160,47 +160,83 @@ Con cariño,<br><strong>Steve & Tatiana</strong>
 </div>
 
 <script>
-/* 🌗 Tema automático */
-const h=new Date().getHours();
-if(h>=18||h<6)document.body.classList.add('noche');
+document.addEventListener("DOMContentLoaded", () => {
 
-/* ⏳ Cuenta regresiva */
-const wedding=new Date("2026-03-28T15:00:00").getTime();
-setInterval(()=>{
-const now=Date.now();
-let d=wedding-now;if(d<0)d=0;
-days.textContent=Math.floor(d/86400000);
-hours.textContent=Math.floor(d%86400000/3600000);
-minutes.textContent=Math.floor(d%3600000/60000);
-seconds.textContent=Math.floor(d%60000/1000);
-},1000);
+  /* 🌗 Tema automático */
+  const hour = new Date().getHours();
+  if (hour >= 18 || hour < 6) {
+    document.body.classList.add("noche");
+  }
 
-/* 🎯 Personalización + tracking */
-const p=new URLSearchParams(location.search);
-const guest=decodeURIComponent(p.get("guest")||"Invitado especial");
-const token=p.get("token");
-guest-name.textContent=`Con cariño para ${guest}`;
+  /* ⏳ Cuenta regresiva */
+  const daysEl = document.getElementById("days");
+  const hoursEl = document.getElementById("hours");
+  const minutesEl = document.getElementById("minutes");
+  const secondsEl = document.getElementById("seconds");
 
-const WEBHOOK="https://script.google.com/macros/s/AKfycbwRAlY0UxQ-RXAy0SaXUzTkOw_DsSoP0jaO2Oa1XnT2aI726XJeNCmTQPm45LSN7ojm/exec";
+  const weddingDate = new Date("2026-03-28T15:00:00").getTime();
 
-/* Registrar apertura */
-if(token){
-navigator.sendBeacon(WEBHOOK,JSON.stringify({
-action:"open",guest,token,ua:navigator.userAgent
-}));
-}
+  function updateCountdown() {
+    const now = Date.now();
+    let diff = weddingDate - now;
+    if (diff < 0) diff = 0;
 
-/* WhatsApp */
-const msg=`Estimados ${guest},
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    daysEl.textContent = days;
+    hoursEl.textContent = hours;
+    minutesEl.textContent = minutes;
+    secondsEl.textContent = seconds;
+  }
+
+  updateCountdown(); // primera ejecución inmediata
+  setInterval(updateCountdown, 1000);
+
+  /* 🎯 Personalización + tracking */
+  const params = new URLSearchParams(window.location.search);
+  const guest = decodeURIComponent(params.get("guest") || "Invitado especial");
+  const token = params.get("token");
+
+  document.getElementById("guest-name").textContent =
+    `Con cariño para ${guest}`;
+
+  const WEBHOOK = "https://script.google.com/macros/s/AKfycbwRAlY0UxQ-RXAy0SaXUzTkOw_DsSoP0jaO2Oa1XnT2aI726XJeNCmTQPm45LSN7ojm/exec";
+
+  if (token) {
+    navigator.sendBeacon(
+      WEBHOOK,
+      JSON.stringify({
+        action: "open",
+        guest: guest,
+        token: token,
+        ua: navigator.userAgent
+      })
+    );
+  }
+
+  /* WhatsApp */
+  const waBtn = document.getElementById("wa-btn");
+  const msg = `Estimados ${guest},
 
 Con mucha alegría les invitamos a celebrar nuestra boda.
 Agradeceremos confirmar su asistencia por este medio.
 
 Con cariño,
 Steve & Tatiana`;
+
+  waBtn.href =
+    `https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
+
+});
+</script>
+
 wa-btn.href=`https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
 </script>
 
 </body>
 </html>
+
 

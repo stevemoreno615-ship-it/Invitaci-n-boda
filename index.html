@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("guest-name").textContent =
     `Con cariño para ${guest}`;
 
-  const WEBHOOK = "https://script.google.com/macros/s/AKfycbwRAlY0UxQ-RXAy0SaXUzTkOw_DsSoP0jaO2Oa1XnT2aI726XJeNCmTQPm45LSN7ojm/exec";
+  const WEBHOOK = "https://script.google.com/macros/s/AKfycbweDDtPVKKSxcGT_Ij9OFI16aJgTyKoAbFNz8umQFvFBDfhpHv_i01RFOzha043t7Q7fw/exec";
 
   if (token) {
     navigator.sendBeacon(
@@ -248,6 +248,16 @@ Steve & Tatiana`;
 
   waBtn.href =
     `https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
+  wa-btn.addEventListener("click", () => {
+  if(token){
+    navigator.sendBeacon(WEBHOOK, JSON.stringify({
+      action:"confirm",
+      guest,
+      token
+    }));
+  }
+});
+
 
 });
 </script>
@@ -257,6 +267,7 @@ wa-btn.href=`https://wa.me/50370689702?text=${encodeURIComponent(msg)}`;
 
 </body>
 </html>
+
 
 
 

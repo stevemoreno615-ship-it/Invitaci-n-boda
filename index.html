@@ -180,7 +180,7 @@ footer{margin-top:40px;font-size:.9rem}
 
     <p class="details">
       📅 28 de marzo de 2026<br>
-      ⛪ Ceremonia: 3:00 p.m.<br>
+         Ceremonia: 3:00 p.m.<br>
       🥂 Recepción: 5:30 p.m.
     </p>
 
@@ -269,30 +269,46 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* Confirmación + WhatsApp */
-  const waBtn = document.getElementById("wa-btn");
-  const waLink = `https://wa.me/50370689702?text=${encodeURIComponent(
-    `Estimados ${guest},\n\nCon mucha alegría les invitamos a celebrar nuestra boda.\nAgradeceremos confirmar su asistencia por este medio.\n\nCon cariño,\nSteve & Tatiana`
-  )}`;
+const waBtn = document.getElementById("wa-btn");
+const waLink = `https://wa.me/50370689702?text=${encodeURIComponent(
+  `Estimados ${guest},\n\nCon mucha alegría les invitamos a celebrar nuestra boda.\nAgradeceremos confirmar su asistencia por este medio.\n\nCon cariño,\nSteve & Tatiana`
+)`;
 
-  waBtn.addEventListener("click", e=>{
-    e.preventDefault();
-    if(token){
-      navigator.sendBeacon(WEBHOOK, JSON.stringify({
-        action:"confirm",
+let clicked = false; // evita doble click
+
+waBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  
+  if(clicked) return; 
+  clicked = true;
+
+  // Registrar confirmación en Sheet
+  if(token){
+    navigator.sendBeacon(
+      WEBHOOK,
+      JSON.stringify({
+        action: "confirm",
         guest,
         token
-      }));
-    }
-    setTimeout(()=>{
-      window.location.href=waLink;
-    },600);
-  });
+      })
+    );
+  }
 
+  // Espera 600ms antes de abrir WhatsApp, asegurando que la petición llegue
+  setTimeout(() => {
+    window.location.href = waLink;
+  }, 600);
+
+  // Opcional: cambiar texto del botón para confirmar visualmente
+  waBtn.textContent = "Asistencia confirmada ✅";
+  waBtn.style.pointerEvents = "none"; // bloquea más clicks
 });
+
 </script>
 
 </body>
 </html>
+
 
 
 

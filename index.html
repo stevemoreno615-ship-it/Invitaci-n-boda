@@ -77,28 +77,18 @@ h1{font-size:3rem;margin:10px 0;}
   margin-top:30px;
 }
 .time-box{
-  background: var(--azul-claro);
+  background: white;
   padding:15px 20px;
   border-radius:12px;
   min-width:80px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 .time-box span{
   display:block;
   font-size:2rem;
   font-weight:700;
   color:black;
-  -webkit-text-stroke: 2px var(--dorado);
-  text-stroke: 2px var(--dorado);
-  background-color: var(--azul-claro);
-  padding:5px 10px;
-  border-radius:8px;
   text-align:center;
-}
-body.noche .time-box span{
-  background-color:#1f4fd8;
-  color:black;
-  -webkit-text-stroke: 2px var(--dorado);
-  text-stroke: 2px var(--dorado);
 }
 .sello{
   position:absolute;
@@ -164,38 +154,39 @@ footer{margin-top:40px;font-size:.9rem;}
 const hour = new Date().getHours();
 if(hour>=18||hour<6) document.body.classList.add('noche');
 
-// Cuenta regresiva
+// Cuenta regresiva funcional
 const weddingDate = new Date("2026-03-28T15:00:00").getTime();
-setInterval(()=>{
+function updateCountdown(){
   const now = Date.now();
-  let diff = weddingDate-now;
-  if(diff<0) diff=0;
-  document.getElementById('days').textContent = Math.floor(diff/86400000);
-  document.getElementById('hours').textContent = Math.floor((diff%86400000)/3600000);
-  document.getElementById('minutes').textContent = Math.floor((diff%3600000)/60000);
-  document.getElementById('seconds').textContent = Math.floor((diff%60000)/1000);
-},1000);
+  let diff = weddingDate - now;
+  if(diff<0) diff = 0;
+  document.getElementById('days').textContent = Math.floor(diff / (1000*60*60*24));
+  document.getElementById('hours').textContent = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  document.getElementById('minutes').textContent = Math.floor((diff % (1000*60*60)) / (1000*60));
+  document.getElementById('seconds').textContent = Math.floor((diff % (1000*60)) / 1000);
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
 
 // Personalización por URL
 const params = new URLSearchParams(location.search);
-const guest = decodeURIComponent(params.get("guest")||"Invitado Especial");
+const guest = decodeURIComponent(params.get("guest") || "Invitado Especial");
 document.getElementById("guest-name").textContent = `Con cariño para ${guest}`;
 
-// WhatsApp confirmación
+// Botón WhatsApp funcional
 const waBtn = document.getElementById("wa-btn");
 waBtn.addEventListener("click", function(e){
     e.preventDefault();
     const msg = `Estimados ${guest},\n\nCon mucha alegría les invitamos a celebrar nuestra boda.\nAgradeceremos confirmar su asistencia.\n\nCon cariño,\nSteve & Tatiana`;
-    // Abrir WhatsApp
     window.open(`https://wa.me/50370689702?text=${encodeURIComponent(msg)}`, "_blank");
-    // Cambiar texto del botón a "Confirmado"
     waBtn.textContent = "✅ Confirmado";
-    waBtn.style.background = "#28a745"; // verde
+    waBtn.style.background = "#28a745";
 });
 </script>
 
 </body>
 </html>
+
 
 
 
